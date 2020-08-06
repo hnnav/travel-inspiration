@@ -1,5 +1,6 @@
 class Destination{
-    constructor(name, decription, image_scr){
+    constructor(name, description, image_scr, id){
+        this.id = id;
         this.name = name;
         this.image_scr = image_scr;
         this.description = description;
