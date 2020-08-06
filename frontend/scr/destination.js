@@ -7,4 +7,16 @@ class Destination{
     }
 
     // instace method that renders object to dom
+    renderDestination(){
+        let destinationContainer = document.getElementById("destination-container")
+
+        destinationContainer.innerHTML += 
+
+    // do something else here
+        `
+        <ul>
+            <li> ${this.name} </li>
+        </ul>
+        `
+    }
 }
