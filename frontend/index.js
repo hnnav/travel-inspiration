@@ -24,7 +24,6 @@ function fetchCategories(){
 // read - fetch destination index
 
 // create - create a new destination
-
 // add this when clicked on category
 function createForm(){
     let destinationForm = document.getElementById("destination-form")
@@ -68,4 +67,10 @@ function destinationFormSubmission(){
     })
 }
 
+// delete - delete a destination
+ let buttons = document.getElementsByClassName("delete-button")
+ for (const button of buttons){
+     button.addEventListener("click", () => {
 
+     })
+ }

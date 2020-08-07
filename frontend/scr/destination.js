@@ -17,6 +17,7 @@ class Destination{
         <ul>
             <li> ${this.name} </li>
         </ul>
+        <button class="delete-button" data-id=${this.id} onclick="deleteDestination()"> Delete destination </button>
         `
     }
 }
