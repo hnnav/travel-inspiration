@@ -68,9 +68,13 @@ function destinationFormSubmission(){
 }
 
 // delete - delete a destination
- let buttons = document.getElementsByClassName("delete-button")
- for (const button of buttons){
-     button.addEventListener("click", () => {
 
-     })
- }
+function deleteDestination(){
+    let destinationId = parseInt(event.target.dataset.id)
+
+    fetch(`${BASE_URL}/destinations/${destinationId}`, {
+        method: "DELETE"
+    })
+
+    this.location.reload()
+}
