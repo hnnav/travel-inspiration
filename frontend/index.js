@@ -33,17 +33,35 @@ function createCategoryForm(){
         <input type="submit" value="Create Category">
     </form>
     `
+
+    categoryForm.addEventListener("submit", categoryFormSubmission)
 }
 
 // what happens on form submission
 function categoryFormSubmission(){
-    let categoryForm = document.getElementById("new-category")
-    categoryForm.addEventListener("submit", () =>{
-        
+    event.preventDefault();
+    let name = document.getElementById("name").value
+    ////let image_scr = document.getElementById("image_scr").value
+    
+    let category = {
+        name: name,
+        image_scr: image_scr
+    }
+
+    fetch(`${BASE_URL}/categories`, {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(category)
+    })
+    .then(resp => resp.json())
+    .then(category => {
+        let d = new Category(category.id, category.name, category.image_scr)
+        d.renderCategory();
     })
 }
-
-
 
 // read - fetch destination index
 
