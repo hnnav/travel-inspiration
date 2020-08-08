@@ -1,5 +1,6 @@
-document.addEventListener('DOMContentLoaded', () => {
-    fetchCategories()
+document.addEventListener("DOMContentLoaded", () => {
+    fetchCategories();
+    createCategoryForm();
 });
 
 const BASE_URL = "http://localhost:3000"
@@ -9,23 +10,46 @@ function fetchCategories(){
 
     fetch(`${BASE_URL}/categories`)
 
-    // take response and convert to json
     .then(resp => resp.json())
 
-    // do something wih fetched data
     .then(categories => {
         for (const category of categories){
-            let c = new Category(category.name, category.image_scr, category.id)
+            let c = new Category(category.id, category.name, category.image_scr)
             c.renderCategory();
         }
-    } )
+        })
+    }
+
+// create new category form
+function createCategoryForm(){
+    let categoryForm = document.getElementById("new-category")
+
+    categoryForm.innerHTML +=
+    `
+    <h3> Create a new category: </h3>
+    <form>
+        <label> Name category: </label> <input type="text" id="name"><br>
+        <label> Add an image: </label> <input type="text" id="image_scr"><br>
+        <input type="submit" value="Create Category">
+    </form>
+    `
 }
+
+// what happens on form submission
+function categoryFormSubmission(){
+    let categoryForm = document.getElementById("new-category")
+    categoryForm.addEventListener("submit", () =>{
+        
+    })
+}
+
+
 
 // read - fetch destination index
 
 // create - create a new destination
 // add this when clicked on category
-function createForm(){
+function createDestinationForm(){
     let destinationForm = document.getElementById("destination-form")
 
     destinationForm.innerHTML +=
@@ -52,7 +76,7 @@ function destinationFormSubmission(){
         image_scr: image_scr,
     }
 
-    fetch(`${BASE_URL}/categories`{
+    fetch(`${BASE_URL}/categories`, {
         method: "POST",
         headers: {
             'Accept': 'application/json',

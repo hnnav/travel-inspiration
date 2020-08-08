@@ -1,8 +1,8 @@
 class Category{
-    constructor(name, image_scr, id){
+    constructor(id, name, image_scr){
+        this.id = id;
         this.name = name;
         this.image_scr = image_scr;
-        this.id = id;
     }
 
     // instace method that renders object to dom
