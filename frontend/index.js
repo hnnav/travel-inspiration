@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const BASE_URL = "http://localhost:3000"
 
 // read - fetch categories index
+
 function fetchCategories(){
 
     fetch(`${BASE_URL}/categories`)
@@ -18,9 +19,10 @@ function fetchCategories(){
             c.renderCategory();
         }
         })
-    }
+}
 
 // create new category form
+
 function createCategoryForm(){
     let categoryForm = document.getElementById("new-category")
 
@@ -37,7 +39,7 @@ function createCategoryForm(){
     categoryForm.addEventListener("submit", categoryFormSubmission)
 }
 
-// what happens on form submission
+// Submit category form
 function categoryFormSubmission(){
     event.preventDefault();
     let name = document.getElementById("name").value
@@ -63,10 +65,24 @@ function categoryFormSubmission(){
     })
 }
 
-// read - fetch destination index
+// read - fetch destination index when category is clicked
+
+function fetchDestinations(){
+
+    fetch(`${BASE_URL}/destinations`)
+
+    .then(resp => console.log(resp))
+
+    //.then(categories => {
+    //    for (const category of categories){
+    //        let c = new Category(category.id, category.name, category.image_scr)
+    //        c.renderCategory();
+    //    }
+    //    })
+}
 
 // create - create a new destination
-// add this when clicked on category
+
 function createDestinationForm(){
     let destinationForm = document.getElementById("destination-form")
 
@@ -81,6 +97,8 @@ function createDestinationForm(){
     `
     destinationForm.addEventListener("submit", destinationFormSubmission)
 }
+
+// Submit new destination
 
 function destinationFormSubmission(){
     event.preventDefault();
