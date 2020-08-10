@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     fetchCategories();
     createCategoryForm();
+    //fetchDestinations();
+    // createDestinationForm();
 });
 
 const BASE_URL = "http://localhost:3000"
@@ -15,8 +17,25 @@ function fetchCategories(){
 
     .then(categories => {
         for (const category of categories){
-            let c = new Category(category.id, category.name, category.image_scr)
+            let c = new Category(category.id, category.name, category.image_scr, category.destinations)
             c.renderCategory();
+            // c.destinations.ForEach.fetchDestinations();
+        }
+        })
+}
+
+// read - fetch destination index when category is clicked
+
+function fetchDestinations(){
+
+    fetch(`${BASE_URL}/destinations`)
+
+    .then(resp => resp.json())
+
+    .then(destinations => {
+        for (const destination of destinations){
+            let d = new Destination(destination.id, destination.name, destination.description, destination.category_id)
+            d.renderDestination();
         }
         })
 }
@@ -39,11 +58,11 @@ function createCategoryForm(){
     categoryForm.addEventListener("submit", categoryFormSubmission)
 }
 
-// Submit category form
+// Callback function to submit category form
 function categoryFormSubmission(){
     event.preventDefault();
     let name = document.getElementById("name").value
-    ////let image_scr = document.getElementById("image_scr").value
+    // let image_scr = document.getElementById("image_scr").value
     
     let category = {
         name: name,
@@ -58,6 +77,7 @@ function categoryFormSubmission(){
         },
         body: JSON.stringify(category)
     })
+    
     .then(resp => resp.json())
     .then(category => {
         let d = new Category(category.id, category.name, category.image_scr)
@@ -65,21 +85,7 @@ function categoryFormSubmission(){
     })
 }
 
-// read - fetch destination index when category is clicked
 
-function fetchDestinations(){
-
-    fetch(`${BASE_URL}/destinations`)
-
-    .then(resp => console.log(resp))
-
-    //.then(categories => {
-    //    for (const category of categories){
-    //        let c = new Category(category.id, category.name, category.image_scr)
-    //        c.renderCategory();
-    //    }
-    //    })
-}
 
 // create - create a new destination
 
@@ -137,4 +143,17 @@ function deleteDestination(){
     })
 
     this.location.reload()
+}
+
+// DELETE CATEGORY
+
+function deleteCategory(){
+    
+    let categoryId = parseInt(event.target.dataset.id)
+ 
+    fetch(`${BASE_URL}/categories/${categoryId}`, {
+        method: 'DELETE'
+    })
+
+    // this.location.reload()
 }

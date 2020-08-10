@@ -1,19 +1,18 @@
 class Category{
-    constructor(id, name, image_scr){
+    constructor(id, name, image_scr, destinations){
         this.id = id;
         this.name = name;
         this.image_scr = image_scr;
+        this.destinations = destinations;
     }
 
-    // instace method that renders object to dom
     renderCategory(){
         let categoryContainer = document.getElementById("category-container")
 
         categoryContainer.innerHTML += 
         `
-        <ul>
-            <li> ${this.name} </li>
-        </ul>
+        <h3 data-category-id="${this.id}"> ${this.name} <h3>
+        <button class="delete-button" data-id="${this.id}" onclick="deleteCategory();"> Delete </button>
         `
     }
 }
