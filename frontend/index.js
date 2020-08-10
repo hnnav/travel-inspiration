@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
     fetchCategories();
     createCategoryForm();
-    //fetchDestinations();
-    // createDestinationForm();
 });
 
 const BASE_URL = "http://localhost:3000"
 
-// read - fetch categories index
+
+
+// FETCH CATEGORIES INDEX
 
 function fetchCategories(){
 
@@ -19,28 +19,11 @@ function fetchCategories(){
         for (const category of categories){
             let c = new Category(category.id, category.name, category.image_scr, category.destinations)
             c.renderCategory();
-            // c.destinations.ForEach.fetchDestinations();
         }
         })
 }
 
-// read - fetch destination index when category is clicked
-
-function fetchDestinations(){
-
-    fetch(`${BASE_URL}/destinations`)
-
-    .then(resp => resp.json())
-
-    .then(destinations => {
-        for (const destination of destinations){
-            let d = new Destination(destination.id, destination.name, destination.description, destination.category_id)
-            d.renderDestination();
-        }
-        })
-}
-
-// create new category form
+// NEW CATEGORY FORM
 
 function createCategoryForm(){
     let categoryForm = document.getElementById("new-category")
@@ -58,7 +41,8 @@ function createCategoryForm(){
     categoryForm.addEventListener("submit", categoryFormSubmission)
 }
 
-// Callback function to submit category form
+// SUBMIT CATEGORY FORM
+
 function categoryFormSubmission(){
     event.preventDefault();
     let name = document.getElementById("name").value
@@ -84,8 +68,6 @@ function categoryFormSubmission(){
         d.renderCategory();
     })
 }
-
-
 
 // create - create a new destination
 
