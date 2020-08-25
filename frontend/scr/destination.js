@@ -13,6 +13,7 @@ class Destination{
         destinationContainer.innerHTML += 
         `
         <h3> ${this.name} <h3>
+        <small> Category: ${this.category.name} </small>
         <p> ${this.description} </p>
         <button data-id="${this.id}""> Edit </button>
         `
