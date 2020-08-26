@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const BASE_URL = "http://localhost:3000"
 
-
 // FETCH DESTINATION INDEX
 
 function fetchDestination() {
@@ -83,4 +82,75 @@ function destinationFormSubmission(name, description, image_scr, category_id){
         document.getElementById("new-destination").querySelector('form').reset()
         d.renderDestination()
     })
+}
+
+// EDIT - 
+// show a form 
+
+// ERROR destination is not being found it chooses the first one
+
+function renderEditForm(){
+    
+    let destinationId = parseInt(event.target.dataset.id)
+    let updateForm = document.getElementById(`${destinationId}`).querySelector('div')
+
+    updateForm.innerHTML +=
+    `
+        <form data-id="${destinationId}">
+          <label>Name</label>
+          <p>
+            <input type="text" id="edited-name"/>
+          </p>
+          <label>Description</label>
+          <p>
+            <textarea id="edited-description"></textarea>
+          </p>
+
+          <label> Edit category </label><br>
+                <select id="edited-category-select" name="categories"> 
+                    <option value="1"> City breaks </option>
+                    <option value="2"> Beach Destinations </option>
+                    <option value="3"> Family holidays </option>
+                </select><br><br>
+
+          <button type='submit'> Save </button>
+        </form>
+    `
+
+    updateForm.addEventListener("submit", (e) =>
+    handleEditData(e))
+}
+
+// handle form data
+// submit and render 
+
+function handleEditData(){
+    event.preventDefault()
+    
+    let destinationId = parseInt(event.target.dataset.id)
+    let name = document.getElementById("edited-name").value
+    let description = document.getElementById("edited-description").value
+    let categoryId = parseInt(document.getElementById("edited-category-select").value)
+    updateDestination(destinationId, name, description, categoryId);
+}
+
+function updateDestination(destination_id, name, description, category_id){
+    fetch(`${BASE_URL}/destinations/${destination_id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+        body: JSON.stringify({
+            id: destination_id,
+            name: name,
+            description: description,
+            category_id: category_id
+        })
+    })
+    .then(resp => resp.json())
+    .then(updated => {
+        console.log(updated)
+        location.reload(true);
+    });
 }
