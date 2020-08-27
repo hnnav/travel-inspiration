@@ -78,7 +78,7 @@ function destinationFormSubmission(name, description, image_scr, category_id){
     })
     .then(resp => resp.json())
     .then(destination => {
-        let d = new Destination(destination.id, destination.name, destination.image_scr, destination.description, destination.category)
+        let d = new Destination(destination.id, destination.name, destination.description, destination.image_scr, destination.category)
         document.getElementById("new-destination").querySelector('form').reset()
         d.renderDestination()
     })
@@ -96,7 +96,7 @@ function renderEditForm(){
 
     updateForm.innerHTML +=
     `
-        <form data-id="${destinationId}">
+        <form class="edit-form" data-id="${destinationId}">
           <label>Name</label>
           <p>
             <input type="text" id="edited-name"/>
@@ -150,7 +150,31 @@ function updateDestination(destination_id, name, description, category_id){
     })
     .then(resp => resp.json())
     .then(updated => {
-        console.log(updated)
-        location.reload(true);
+
+        // assign values
+
+        const destinationId = updated.id
+        const newName = updated.name
+        const newDescription  = updated.description
+
+        // select the destination card by id
+
+        const destinationCard = document.getElementById(`${destinationId}`)
+        
+        // select name and description by id
+
+        const nameElement = destinationCard.querySelector('#destination-name')
+        const descriptionElement = destinationCard.querySelector('#destination-description')
+
+        // manipulate the DOM
+
+        nameElement.innerHTML = newName
+        descriptionElement.innerHTML = newDescription
+
+        // hide the form again
+
+        editForm = document.querySelector('.edit-form')
+        editForm.style.display = 'none'
+
     });
 }
